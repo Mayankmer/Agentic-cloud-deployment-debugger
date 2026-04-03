@@ -29,12 +29,12 @@ class Orchestrator:
             
             # 2. Validate
             if exec_result["success"] and self.validator.check_health(project_path):
-                print("✅ Deployment Successful!")
+                print(" Deployment Successful!")
                 self.reporter.log_attempt(attempt, "Success")
                 break
                 
             # 3. Handle Failure
-            print("❌ Deployment Failed. Debugging...")
+            print(" Deployment Failed. Debugging...")
             logs = self.collector.gather_logs(exec_result, project_path)
 
             print(f"\n--- DEBUG LOGS ---\n{logs}\n------------------\n")
@@ -46,11 +46,10 @@ class Orchestrator:
             success = self.patcher.apply(patch, project_path)
             
             if not success:
-                print("🛑 Could not generate or apply fix. Aborting.")
+                print(" Could not generate or apply fix. Aborting.")
                 break
                 
-            # --- NEW CLEANUP STEP ---
-            print("🧹 Cleaning up old broken resources before next attempt...")
+            print(" Cleaning up old broken resources before next attempt...")
             self.executor.run_command("kubectl delete -f .", cwd=project_path)
             # Give Kubernetes a few seconds to terminate the old pods
             time.sleep(5)

@@ -4,7 +4,7 @@ import time
 class Validator:
     def check_health(self, project_path: str, max_wait: int = 45) -> bool:
         """Polls Kubernetes to see if pods reach Running or Error states."""
-        print(f"🔍 Validating deployment health (waiting up to {max_wait}s)...")
+        print(f" Validating deployment health (waiting up to {max_wait}s)...")
         
         # Poll every 3 seconds
         for _ in range(max_wait // 3):
@@ -16,7 +16,7 @@ class Validator:
                 shell=True, capture_output=True, text=True
             )
             if error_check.stdout.strip():
-                print("⚠️ Detected pod error state.")
+                print(" Detected pod error state.")
                 return False
             
             # 2. Check if pods are still creating/pending
@@ -35,5 +35,5 @@ class Validator:
             if running_check.stdout.strip():
                 return True # Success!
         
-        print("⏳ Validation timed out. Assuming failure.")
+        print(" Validation timed out. Assuming failure.")
         return False

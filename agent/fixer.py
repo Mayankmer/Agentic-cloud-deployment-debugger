@@ -15,7 +15,7 @@ class FixGenerator:
         self.client = genai.Client(api_key=api_key)
 
     def generate_fix(self, error_type: str, logs: str, target_file: str) -> dict:
-        print(f"🧠 Asking Gemini to fix {error_type} in {target_file}...")
+        print(f"Asking Gemini to fix {error_type} in {target_file}...")
         
         try:
             with open(os.path.join(".", "test_project", target_file), 'r') as f:

@@ -13,7 +13,7 @@ class PatchApplier:
 
         # 1. Backup the file
         shutil.copy(filepath, f"{filepath}.bak")
-        print(f"💾 Backed up {filepath}")
+        print(f" Backed up {filepath}")
 
         # 2. Apply fix
         with open(filepath, 'r') as file:
@@ -24,5 +24,5 @@ class PatchApplier:
         with open(filepath, 'w') as file:
             file.write(content)
             
-        print(f"🔧 Patched {filepath}")
+        print(f" Patched {filepath}")
         return True
